@@ -8,9 +8,7 @@ import static staepGame.total.model.GameCompete.LOSE;
 
 public class OneGameOutputView {
 
-
     private static final String MESSAGE_START_BEFORE = "첫번째 게임을 시작합니다.";
-
 
     public void gameGuideOne() {
         GameGuide.stepOneGuide();

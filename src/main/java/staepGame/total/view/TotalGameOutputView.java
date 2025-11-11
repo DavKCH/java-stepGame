@@ -3,7 +3,6 @@ package staepGame.total.view;
 
 import staepGame.total.model.User;
 
-import static staepGame.total.model.GameCompete.LOSE;
 
 public class TotalGameOutputView {
 
