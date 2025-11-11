@@ -40,7 +40,6 @@ public class OneGameController {
     private static int ONE_GAME_COUNT = 0;
     private static final int ONE_GAME_LAST = 3;
 
-
     public OneGameController() {
 
         this.totalGameInputView = new TotalGameInputView();
@@ -56,28 +55,18 @@ public class OneGameController {
 
         totalGameOutputView.gameStartShow();
 
-        String strNameInput = totalGameInputView.inputGameStart();
-        String userName = UserNameValidate.start(strNameInput);
+        String userName = getUserName();
         User user = new User(userName);
-
-        String guideInput = oneGameInputView.gameGuide();
-        String oneGamedGuide = GameGuideInputValidate.start(guideInput);
-
-        boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
-        if (hasOneGameGuide) {
-            oneGameOutputView.gameGuideOne();
-        }
-
+        oneGameGuide();
         oneGameOutputView.oneGameStartBefore();
 
         while (ONE_GAME_COUNT != ONE_GAME_LAST) {
 
-            String scissorsFromPaperInput = oneGameInputView.scissorsFromPaper();
-            String userActionInput = UserScissorsFromPaperInputValidate.start(scissorsFromPaperInput);
-            String comActionInput = String.valueOf(Randoms.pickNumberInRange(1, 3));
+            String[] actionResult = getActionInput();
+            String userActionInput = actionResult[0];
+            String comActionInput = actionResult[1];
 
-
-            int[] numResults = UserRcpActionValidate.start(userActionInput, comActionInput);
+            int[] numResults = getNumResult(userActionInput, comActionInput);
             int userOneGameResultNum = numResults[0];
             int comOneGameResultNum = numResults[1];
 
@@ -102,4 +91,63 @@ public class OneGameController {
         totalGameOutputView.gameEndShow(user);
     }
 
+    private String getUserName() {
+        while (true) {
+            try {
+                String strNameInput = totalGameInputView.inputGameStart();
+                String userName = UserNameValidate.start(strNameInput);
+
+                return userName;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void oneGameGuide() {
+        while (true) {
+            try {
+                String guideInput = oneGameInputView.gameGuide();
+                String oneGamedGuide = GameGuideInputValidate.start(guideInput);
+
+                boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
+                if (hasOneGameGuide) {
+                    oneGameOutputView.gameGuideOne();
+                }
+
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    private String[] getActionInput() {
+        while (true){
+            try {
+                String scissorsFromPaperInput = oneGameInputView.scissorsFromPaper();
+
+                String[] ActionInput = new String[2];
+
+                ActionInput[0] = UserScissorsFromPaperInputValidate.start(scissorsFromPaperInput);
+                ActionInput[1] = String.valueOf(Randoms.pickNumberInRange(1, 3));
+
+                return ActionInput;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    private static int[] getNumResult(String userActionInput, String comActionInput) {
+        while (true) {
+            try {
+                return  UserRcpActionValidate.start(userActionInput, comActionInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
