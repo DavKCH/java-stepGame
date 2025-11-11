@@ -1,8 +1,8 @@
-package staepGame;
+package staepGame.total.model;
 
 public abstract class GameGuide {
 
-    static void stepOneGuide() {
+    public static void stepOneGuide() {
         System.out.println("∥=======================================∥");
         System.out.println("∥\t\t첫 번째 게임 : 가위 바위 보\t\t\t∥");
         System.out.println("∥=======================================∥");
@@ -12,7 +12,7 @@ public abstract class GameGuide {
         System.out.println();
     }
 
-    static void stepTwoGuide() {
+    public static void stepTwoGuide() {
         System.out.println("∥=======================================∥");
         System.out.println("∥\t\t두 번째 게임 : UP and Down\t\t∥");
         System.out.println("∥=======================================∥");
@@ -26,7 +26,7 @@ public abstract class GameGuide {
         System.out.println();
     }
 
-    static void stepThreeGuide() {
+    public static void stepThreeGuide() {
         System.out.println("∥\t\t세 번째 게임 : 계단 오르기\t\t\t∥");
         System.out.println("∥=======================================∥");
         System.out.println("∥\t\t\t가위 바위 보를 한다.\t\t\t∥");

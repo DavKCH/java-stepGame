@@ -1,4 +1,4 @@
-package staepGame;
+package staepGame.total.model;
 
 public class User {
 
