@@ -30,63 +30,19 @@ public class Application {
             int userOneGameResult = Integer.parseInt(scissorsFromPaper);
             int comOneGameResult = Randoms.pickNumberInRange(1, 3);
 
-            //승리
-            // 가위 승리
-            if (userOneGameResult == SCISSORS.getResult() && comOneGameResult == PAPER.getResult()) {
-                System.out.println("이겼 습니다.");
-                System.out.println("사용자: " + SCISSORS.getKoreaStr() + " 컴퓨터: " + PAPER.getKoreaStr());
+            String gameResult = OneGame.gameResult(userOneGameResult, comOneGameResult);
+            OneGame[] oneGames = OneGame.userAndGameAction(userOneGameResult, comOneGameResult);
+            String userKoreaStr = oneGames[0].getKoreaStr();
+            String comKoreaStr = oneGames[1].getKoreaStr();
+
+            System.out.printf("%s\n", gameResult);
+            System.out.printf("사용자: %s, 컴퓨터: %s\n", userKoreaStr, comKoreaStr);
+            System.out.println();
+
+            if (gameResult.equals("승리")) {
                 break;
             }
 
-            // 묵 승리
-            if ((userOneGameResult == ROCK.getResult()) && (comOneGameResult == SCISSORS.getResult())) {
-                System.out.println("이겼 습니다.");
-                System.out.println("사용자: " + ROCK.getKoreaStr() + " 컴퓨터: " + SCISSORS.getKoreaStr());
-                break;
-            }
-
-            // 보 승리
-            if ((userOneGameResult == PAPER.getResult()) && (comOneGameResult == ROCK.getResult())) {
-                System.out.println("이겼 습니다.");
-                System.out.println("사용자: " + PAPER.getKoreaStr() + " 컴퓨터: " + ROCK.getKoreaStr());
-                break;
-            }
-
-
-            // 패배
-            // 가위 패배
-            if (userOneGameResult == SCISSORS.getResult() && comOneGameResult == ROCK.getResult()) {
-                System.out.println("졌습니다.");
-                System.out.println("사용자: " + PAPER.getKoreaStr() + ", 컴퓨터: " + ROCK.getKoreaStr());
-            }
-
-            // 묵 패배
-            if ((userOneGameResult == ROCK.getResult()) && (comOneGameResult == PAPER.getResult())) {
-                System.out.println("졌습니다");
-                System.out.println("사용자: " + SCISSORS.getKoreaStr() + ", 컴퓨터: " + PAPER.getKoreaStr());
-            }
-
-            // 보 패배
-            if ((userOneGameResult == PAPER.getResult()) && (comOneGameResult == SCISSORS.getResult())) {
-                System.out.println("졌습니다");
-                System.out.println("사용자: " + PAPER.getKoreaStr() + ", 컴퓨터: " + SCISSORS.getKoreaStr());
-            }
-
-            //무승부
-            if (userOneGameResult == comOneGameResult) {
-                System.out.println("비겼 습니다.");
-                if (userOneGameResult == SCISSORS.getResult()) {
-                    System.out.println("사용자: " + SCISSORS.getKoreaStr() + ", 컴퓨터: " + SCISSORS.getKoreaStr());
-                }
-
-                if (userOneGameResult == ROCK.getResult()) {
-                    System.out.println("사용자: " + ROCK.getKoreaStr() + ", 컴퓨터: " + ROCK.getKoreaStr());
-                }
-
-                if (userOneGameResult == PAPER.getResult()) {
-                    System.out.println("사용자: " + PAPER.getKoreaStr() + ", 컴퓨터: " + PAPER.getKoreaStr());
-                }
-            }
             oneGameCount++;
         }
 
