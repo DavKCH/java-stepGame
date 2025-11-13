@@ -2,6 +2,7 @@ package staepGame;
 
 
 import staepGame.level1.controller.OneGameController;
+import staepGame.level2.controller.TwoGameController;
 import staepGame.total.repository.UserRepository;
 
 public class Application {
@@ -15,6 +16,8 @@ public class Application {
         UserRepository repository = oneGameController.winUserRepository();
 
 
+        TwoGameController twoGameController = new TwoGameController(repository);
+        twoGameController.run();
     }
 
 }
