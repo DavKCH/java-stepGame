@@ -8,8 +8,6 @@ import static staepGame.total.model.GameCompete.LOSE;
 public class TwoGameOutputView implements OutputView {
 
     private static final String MESSAGE_START_BEFORE = "두번째 게임을 시작합니다.";
-    private static final String MESSAGE_UP = "UP";
-    private static final String MESSAGE_DOWN = "DOWN";
 
     @Override
     public void gameGuide() {
@@ -21,12 +19,9 @@ public class TwoGameOutputView implements OutputView {
         System.out.println(MESSAGE_START_BEFORE);
     }
 
-    public void gameUpShow() {
-        System.out.println(MESSAGE_UP);
-    }
-
-    public void gameDownShow() {
-        System.out.println(MESSAGE_DOWN);
+    @Override
+    public void gameResult(String gameResult) {
+        System.out.printf("%s\n", gameResult);
     }
 
     @Override

@@ -6,6 +6,7 @@ import staepGame.level2.model.TwoGameAction;
 import staepGame.level2.view.TwoGameInputView;
 import staepGame.level2.view.TwoGameOutputView;
 
+import staepGame.total.model.Com;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
 import staepGame.total.repository.UserRepository;
@@ -49,6 +50,7 @@ public class TwoGameController {
 
         List<User> userList = userRepository.getUserList();
         User defaultUser = null;
+        Com com = new Com();
 
         while (gameBeforeCheck) {
             String nameCheckInput = totalGameInputView.nameCheck();
@@ -67,11 +69,14 @@ public class TwoGameController {
 
         twoGameGuide();
         twoGameOutputView.gameStartBefore();
+
+        System.out.println(com.getTwoGameResult());
         while (twoGameCount != TWO_GAME_LAST) {
             int userInput = getActionInput();
+            int comInput = com.getTwoGameResult();
 
-
-
+            String gameResult = TwoGameAction.gameResult(userInput, comInput);
+            twoGameOutputView.gameResult(gameResult);
 
             twoGameCount++;
         }

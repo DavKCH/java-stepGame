@@ -21,7 +21,8 @@ public class OneGameOutputView implements OutputView {
         System.out.println(MESSAGE_START_BEFORE);
     }
 
-    public void oneGameResult(String gameResult) {
+    @Override
+    public void gameResult(String gameResult) {
         System.out.printf("%s\n", gameResult);
     }
 

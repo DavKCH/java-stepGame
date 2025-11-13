@@ -66,7 +66,7 @@ public class OneGameController {
             OneGameAction[] oneGames = OneGameAction.userAndGameAction(userOneGameResultNum, comOneGameResultNum);
 
             // 게임 행동의 대한 결과
-            oneGameOutputView.oneGameResult(gameResult);
+            oneGameOutputView.gameResult(gameResult);
             oneGameOutputView.oneGameUserAndComStatus(user, oneGames);
 
             // 게임의 승리 했을시, 사용자의 등급 업 및 유저를 저장
