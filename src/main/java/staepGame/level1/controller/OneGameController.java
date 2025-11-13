@@ -16,10 +16,7 @@ import static staepGame.total.model.GameCompete.WIN;
 
 import staepGame.total.repository.UserRepository;
 
-import staepGame.total.validate.GameGuideInputValidate;
-import staepGame.total.validate.UserNameValidate;
-import staepGame.total.validate.UserRcpActionValidate;
-import staepGame.total.validate.UserScissorsFromPaperInputValidate;
+import staepGame.total.validate.*;
 
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
@@ -85,9 +82,14 @@ public class OneGameController {
             }
 
             oneGameCount++;
+
+            if (oneGameCount == ONE_GAME_LAST) {
+                oneGameOutputView.oneGameLoseStatus(ONE_GAME_LAST);
+                reStartAction(user);
+            }
+
         }
 
-        oneGameOutputView.oneGameLoseStatus(ONE_GAME_LAST);
         totalGameOutputView.gameEndShow(user);
     }
 
@@ -158,6 +160,25 @@ public class OneGameController {
         while (true) {
             try {
                 return  UserRcpActionValidate.start(userActionInput, comActionInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void reStartAction(User user) {
+
+        while (true) {
+            try {
+                String reStartGameInput = totalGameInputView.inputReStartGame(user);
+                String reStratGameResult = GameReStartInputValidate.start(reStartGameInput);
+
+                boolean hasReStartGame = reStratGameResult.equalsIgnoreCase("y");
+                if (hasReStartGame) {
+                    oneGameCount = 0;
+                }
+
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
