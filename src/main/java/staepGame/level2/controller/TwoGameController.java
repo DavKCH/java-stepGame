@@ -7,6 +7,8 @@ import staepGame.level2.view.TwoGameOutputView;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
 import staepGame.total.repository.UserRepository;
+import staepGame.total.validate.YesNoInputValidate;
+
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
 
@@ -25,6 +27,8 @@ public class TwoGameController {
 
     private static final int TWO_GAME_LAST = 8;
     private int twoGameCount = 0;
+    private boolean gameStart = true;
+
 
     public TwoGameController(UserRepository userRepository) {
 
@@ -40,20 +44,42 @@ public class TwoGameController {
     public void run() {
 
         List<User> userList = userRepository.getUserList();
-        String nameCheckInput = totalGameInputView.nameCheck();
-        Optional<User> findUser = userList.stream()
-                .filter(user -> user.getName().equals(nameCheckInput))
-                .filter(user -> !user.getStepRank().equals(StepRank.BASIC))
-                .findFirst();
 
-        User user = findUser.orElse(null);
+        while (gameStart) {
+            String nameCheckInput = totalGameInputView.nameCheck();
+            Optional<User> findUser = userList.stream()
+                    .filter(user -> user.getName().equals(nameCheckInput))
+                    .filter(user -> !user.getStepRank().equals(StepRank.BASIC))
+                    .findFirst();
 
-        if (user == null) {
-            throw  new IllegalArgumentException();
+            User user = findUser.orElse(null);
+            String reInputResult = reNameInputAction(user);
+            if (reInputResult.equals("Y")) {
+                continue;
+            }
+            
         }
+    }
 
-        
+    private String reNameInputAction(User user) {
 
+        while (true) {
+            try {
+                if (user == null) {
+                    String reInputNameResult = totalGameInputView.reInputName();
+                    String reInputResult = YesNoInputValidate.start(reInputNameResult);
+
+                    boolean hasReNameInput = reInputResult.equalsIgnoreCase("y");
+                    if (!hasReNameInput) {
+                        gameStart = false;
+                    }
+
+                    return reInputResult;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }

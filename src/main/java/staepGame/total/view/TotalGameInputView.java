@@ -7,6 +7,7 @@ public class TotalGameInputView {
 
     public static final String MESSAGE_USER_NAME = "사용자의 이름을 입력 해주세요.";
     private static final String MESSAGE_NAME_CHECK = "사용자를 확인 합니다.\n사용자의 이름을 입력 해주세요.";
+    private static final String MESSAGE_NOT_NAME_RR_START = "잘못된 이름 입니다.\n다시 이름을 입력 하시 겠습니까? (y,n)";
 
     public String inputGameStart() {
         System.out.println(MESSAGE_USER_NAME);
@@ -22,4 +23,10 @@ public class TotalGameInputView {
         System.out.println(MESSAGE_NAME_CHECK);
         return Console.readLine();
     }
+
+    public String reInputName() {
+        System.out.println(MESSAGE_NOT_NAME_RR_START);
+        return Console.readLine();
+    }
+
 }
