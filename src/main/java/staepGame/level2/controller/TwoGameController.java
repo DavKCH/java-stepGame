@@ -1,12 +1,16 @@
 package staepGame.level2.controller;
 
 
+import camp.nextstep.edu.missionutils.Randoms;
+import staepGame.level2.model.TwoGameAction;
 import staepGame.level2.view.TwoGameInputView;
 import staepGame.level2.view.TwoGameOutputView;
 
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
 import staepGame.total.repository.UserRepository;
+import staepGame.total.validate.UserNumValidate;
+import staepGame.total.validate.UserScissorsFromPaperInputValidate;
 import staepGame.total.validate.YesNoInputValidate;
 
 import staepGame.total.view.TotalGameInputView;
@@ -27,7 +31,7 @@ public class TwoGameController {
 
     private static final int TWO_GAME_LAST = 8;
     private int twoGameCount = 0;
-    private boolean gameStart = true;
+    private boolean gameBeforeCheck = true;
 
 
     public TwoGameController(UserRepository userRepository) {
@@ -44,26 +48,37 @@ public class TwoGameController {
     public void run() {
 
         List<User> userList = userRepository.getUserList();
+        User defaultUser = null;
 
-        while (gameStart) {
+        while (gameBeforeCheck) {
             String nameCheckInput = totalGameInputView.nameCheck();
             Optional<User> findUser = userList.stream()
                     .filter(user -> user.getName().equals(nameCheckInput))
                     .filter(user -> !user.getStepRank().equals(StepRank.BASIC))
                     .findFirst();
 
-            User user = findUser.orElse(null);
-            String reInputResult = reNameInputAction(user);
-            if (reInputResult.equals("Y")) {
-                continue;
-            }
-
-            twoGameGuide();
-            twoGameOutputView.gameStartBefore();
+            defaultUser = findUser.orElse(null);
+            reNameInputAction(defaultUser);
         }
+
+        if (defaultUser == null) {
+            return;
+        }
+
+        twoGameGuide();
+        twoGameOutputView.gameStartBefore();
+        while (twoGameCount != TWO_GAME_LAST) {
+            int userInput = getActionInput();
+
+
+
+
+            twoGameCount++;
+        }
+
     }
 
-    private String reNameInputAction(User user) {
+    private void reNameInputAction(User user) {
 
         while (true) {
             try {
@@ -73,10 +88,10 @@ public class TwoGameController {
 
                     boolean hasReNameInput = reInputResult.equalsIgnoreCase("y");
                     if (!hasReNameInput) {
-                        gameStart = false;
+                        gameBeforeCheck = false;
                     }
 
-                    return reInputResult;
+                    break;
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -100,6 +115,20 @@ public class TwoGameController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private int getActionInput() {
+        while (true){
+            try {
+                String numInput = twoGameInputView.gameInput();
+                int result = UserNumValidate.start(numInput);
+
+                return result;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
 }

@@ -16,5 +16,22 @@ public enum TwoGameAction {
         return result;
     }
 
+    public static String gameResult(int userResult, int comResult) {
+
+        if (userResult == comResult) {
+            return "승리";
+        }
+
+        if (userResult > comResult) {
+            return DOWN.name();
+        }
+
+        if (userResult < comResult) {
+            return UP.name();
+        }
+
+        return null;
+    }
+
 
 }
