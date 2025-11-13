@@ -11,12 +11,10 @@ public class Application {
 
         UserRepository userRepository = new UserRepository();
 
-        OneGameController oneGameController = new OneGameController(userRepository);
-        oneGameController.run();
-        UserRepository repository = oneGameController.winUserRepository();
+//        OneGameController oneGameController = new OneGameController(userRepository);
+//        oneGameController.run();
 
-
-        TwoGameController twoGameController = new TwoGameController(repository);
+        TwoGameController twoGameController = new TwoGameController(userRepository);
         twoGameController.run();
     }
 

@@ -141,19 +141,6 @@ public class OneGameController {
 
     }
 
-    public UserRepository winUserRepository() {
-        List<User> userList = userRepository.getUserList();
-
-        boolean hasRankBronze = userList.stream()
-                .anyMatch(user -> user.getStepRank() == StepRank.BRONZE);
-
-        if (hasRankBronze) {
-            return userRepository;
-        }
-
-        return null;
-    }
-
     private static int[] getNumResult(String userActionInput, String comActionInput) {
         while (true) {
             try {

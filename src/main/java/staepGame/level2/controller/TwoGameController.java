@@ -4,9 +4,14 @@ package staepGame.level2.controller;
 import staepGame.level2.view.TwoGameInputView;
 import staepGame.level2.view.TwoGameOutputView;
 
+import staepGame.total.model.StepRank;
+import staepGame.total.model.User;
 import staepGame.total.repository.UserRepository;
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
+
+import java.util.List;
+import java.util.Optional;
 
 public class TwoGameController {
 
@@ -33,7 +38,22 @@ public class TwoGameController {
     }
 
     public void run() {
+
+        List<User> userList = userRepository.getUserList();
+        String nameCheckInput = totalGameInputView.nameCheck();
+        Optional<User> findUser = userList.stream()
+                .filter(user -> user.getName().equals(nameCheckInput))
+                .filter(user -> !user.getStepRank().equals(StepRank.BASIC))
+                .findFirst();
+
+        User user = findUser.orElse(null);
+
+        if (user == null) {
+            throw  new IllegalArgumentException();
+        }
+
         
+
     }
 
 }
