@@ -24,7 +24,7 @@ import staepGame.total.validate.UserScissorsFromPaperInputValidate;
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
 
-
+import java.util.List;
 
 
 public class OneGameController {
@@ -37,10 +37,10 @@ public class OneGameController {
 
     private final UserRepository userRepository;
 
-    private static int ONE_GAME_COUNT = 0;
     private static final int ONE_GAME_LAST = 3;
+    private int oneGameCount = 0;
 
-    public OneGameController() {
+    public OneGameController(UserRepository userRepository) {
 
         this.totalGameInputView = new TotalGameInputView();
         this.totalGameOutputView = new TotalGameOutputView();
@@ -48,7 +48,7 @@ public class OneGameController {
         this.oneGameInputView = new OneGameInputView();
         this.oneGameOutputView = new OneGameOutputView();
 
-        this.userRepository = new UserRepository();
+        this.userRepository = userRepository;
     }
 
     public void run() {
@@ -60,7 +60,7 @@ public class OneGameController {
         oneGameGuide();
         oneGameOutputView.oneGameStartBefore();
 
-        while (ONE_GAME_COUNT != ONE_GAME_LAST) {
+        while (oneGameCount != ONE_GAME_LAST) {
 
             String[] actionResult = getActionInput();
             String userActionInput = actionResult[0];
@@ -84,7 +84,7 @@ public class OneGameController {
                 return;
             }
 
-            ONE_GAME_COUNT++;
+            oneGameCount++;
         }
 
         oneGameOutputView.oneGameLoseStatus(ONE_GAME_LAST);
@@ -139,6 +139,19 @@ public class OneGameController {
             }
         }
 
+    }
+
+    public UserRepository winUserRepository() {
+        List<User> userList = userRepository.getUserList();
+
+        boolean hasRankBronze = userList.stream()
+                .anyMatch(user -> user.getStepRank() == StepRank.BRONZE);
+
+        if (hasRankBronze) {
+            return userRepository;
+        }
+
+        return null;
     }
 
     private static int[] getNumResult(String userActionInput, String comActionInput) {
