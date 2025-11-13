@@ -55,6 +55,7 @@ public class OneGameController {
 
         while (oneGameCount != ONE_GAME_LAST) {
 
+            // 가위 바위 보 행동
             String[] actionResult = getActionInput();
             String userActionInput = actionResult[0];
             String comActionInput = actionResult[1];
@@ -66,25 +67,26 @@ public class OneGameController {
             String gameResult = OneGameAction.gameResult(userOneGameResultNum, comOneGameResultNum);
             OneGameAction[] oneGames = OneGameAction.userAndGameAction(userOneGameResultNum, comOneGameResultNum);
 
+            // 게임 행동의 대한 결과
             oneGameOutputView.oneGameResult(gameResult);
             oneGameOutputView.oneGameUserAndComStatus(user, oneGames);
 
-
+            // 게임의 승리 했을시, 사용자의 등급 업 및 유저를 저장
             if (WIN.getResult().equals(gameResult)) {
                 user.setStepRank(StepRank.BRONZE);
                 userRepository.add(user);
 
                 return;
             }
-
             oneGameCount++;
 
+            // 게임에 완전히 패배 햇을 경우, 다시 시작을 묻는 로직.
             if (oneGameCount == ONE_GAME_LAST) {
                 oneGameOutputView.oneGameLoseStatus(ONE_GAME_LAST);
                 reStartAction(user);
             }
 
-        }
+        } // while end
 
         totalGameOutputView.gameEndShow(user);
     }
