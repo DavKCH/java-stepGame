@@ -4,22 +4,18 @@ package staepGame.level1.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
-import staepGame.level1.model.OneGameAction;
-
 import staepGame.level1.view.OneGameInputView;
 import staepGame.level1.view.OneGameOutputView;
+import staepGame.level1.model.OneGameAction;
 
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
-
 import static staepGame.total.model.GameCompete.WIN;
-
-import staepGame.total.repository.UserRepository;
-
-import staepGame.total.validate.*;
-
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
+
+import staepGame.total.repository.UserRepository;
+import staepGame.total.validate.*;
 
 import java.util.List;
 
@@ -110,7 +106,7 @@ public class OneGameController {
         while (true) {
             try {
                 String guideInput = oneGameInputView.gameGuide();
-                String oneGamedGuide = GameGuideInputValidate.start(guideInput);
+                String oneGamedGuide = YesNoInputValidate.start(guideInput);
 
                 boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
                 if (hasOneGameGuide) {
@@ -171,7 +167,7 @@ public class OneGameController {
         while (true) {
             try {
                 String reStartGameInput = totalGameInputView.inputReStartGame(user);
-                String reStratGameResult = GameReStartInputValidate.start(reStartGameInput);
+                String reStratGameResult = YesNoInputValidate.start(reStartGameInput);
 
                 boolean hasReStartGame = reStratGameResult.equalsIgnoreCase("y");
                 if (hasReStartGame) {
@@ -184,4 +180,5 @@ public class OneGameController {
             }
         }
     }
+
 }

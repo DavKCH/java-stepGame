@@ -1,6 +1,6 @@
 package staepGame.total.validate;
 
-public abstract class GameGuideInputValidate {
+public abstract class YesNoInputValidate {
 
     public static String start(String gameGuideInput) {
         guideInputNullOrEmpty(gameGuideInput);
