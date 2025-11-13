@@ -17,8 +17,6 @@ import staepGame.total.view.TotalGameOutputView;
 import staepGame.total.repository.UserRepository;
 import staepGame.total.validate.*;
 
-import java.util.List;
-
 
 public class OneGameController {
 
@@ -51,7 +49,7 @@ public class OneGameController {
         String userName = getUserName();
         User user = new User(userName);
         oneGameGuide();
-        oneGameOutputView.oneGameStartBefore();
+        oneGameOutputView.gameStartBefore();
 
         while (oneGameCount != ONE_GAME_LAST) {
 
@@ -82,7 +80,7 @@ public class OneGameController {
 
             // 게임에 완전히 패배 햇을 경우, 다시 시작을 묻는 로직.
             if (oneGameCount == ONE_GAME_LAST) {
-                oneGameOutputView.oneGameLoseStatus(ONE_GAME_LAST);
+                oneGameOutputView.gameLoseStatus(ONE_GAME_LAST);
                 reStartAction(user);
             }
 
@@ -112,7 +110,7 @@ public class OneGameController {
 
                 boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
                 if (hasOneGameGuide) {
-                    oneGameOutputView.gameGuideOne();
+                    oneGameOutputView.gameGuide();
                 }
 
                 break;
@@ -126,7 +124,7 @@ public class OneGameController {
     private String[] getActionInput() {
         while (true){
             try {
-                String scissorsFromPaperInput = oneGameInputView.scissorsFromPaper();
+                String scissorsFromPaperInput = oneGameInputView.gameInput();
 
                 String[] ActionInput = new String[2];
 

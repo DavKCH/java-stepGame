@@ -57,7 +57,9 @@ public class TwoGameController {
             if (reInputResult.equals("Y")) {
                 continue;
             }
-            
+
+            twoGameGuide();
+            twoGameOutputView.gameStartBefore();
         }
     }
 
@@ -76,6 +78,24 @@ public class TwoGameController {
 
                     return reInputResult;
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void twoGameGuide() {
+        while (true) {
+            try {
+                String guideInput = twoGameInputView.gameGuide();
+                String oneGamedGuide = YesNoInputValidate.start(guideInput);
+
+                boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
+                if (hasOneGameGuide) {
+                    twoGameOutputView.gameGuide();
+                }
+
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
