@@ -19,7 +19,6 @@ import staepGame.total.view.TotalGameOutputView;
 
 import static staepGame.total.model.GameCompete.WIN;
 
-import java.util.List;
 import java.util.Optional;
 
 public class TwoGameController {
@@ -50,19 +49,10 @@ public class TwoGameController {
 
     public void run() {
 
-
         User defaultUser = null;
         Com com = new Com();
 
-        while (gameBeforeCheck) {
-            String nameCheckInput = totalGameInputView.nameCheck();
-            Optional<User> findUser = userRepository.findUser(nameCheckInput)
-                    .filter(user -> !user.getStepRank().equals(StepRank.BASIC));
-
-            defaultUser = findUser.orElse(null);
-            reNameInputAction(defaultUser);
-        }
-
+        defaultUser = userCheck(defaultUser);
         if (defaultUser == null) {
             return;
         }
@@ -92,6 +82,18 @@ public class TwoGameController {
             }
         }
 
+    }
+
+    private User userCheck(User defaultUser) {
+        while (gameBeforeCheck) {
+            String nameCheckInput = totalGameInputView.nameCheck();
+            Optional<User> findUser = userRepository.findUser(nameCheckInput)
+                    .filter(user -> !user.getStepRank().equals(StepRank.BASIC));
+
+            defaultUser = findUser.orElse(null);
+            reNameInputAction(defaultUser);
+        }
+        return defaultUser;
     }
 
     private void reNameInputAction(User user) {
