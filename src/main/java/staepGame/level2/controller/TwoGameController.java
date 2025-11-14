@@ -50,16 +50,14 @@ public class TwoGameController {
 
     public void run() {
 
-        List<User> userList = userRepository.getUserList();
+
         User defaultUser = null;
         Com com = new Com();
 
         while (gameBeforeCheck) {
             String nameCheckInput = totalGameInputView.nameCheck();
-            Optional<User> findUser = userList.stream()
-                    .filter(user -> user.getName().equals(nameCheckInput))
-                    .filter(user -> !user.getStepRank().equals(StepRank.BASIC))
-                    .findFirst();
+            Optional<User> findUser = userRepository.findUser(nameCheckInput)
+                    .filter(user -> !user.getStepRank().equals(StepRank.BASIC));
 
             defaultUser = findUser.orElse(null);
             reNameInputAction(defaultUser);
