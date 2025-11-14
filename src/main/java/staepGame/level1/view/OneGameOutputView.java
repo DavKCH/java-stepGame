@@ -33,7 +33,7 @@ public class OneGameOutputView implements OutputView {
         System.out.printf("%s님: %s, 컴퓨터: %s\n", user.getName(), userKoreaStr, comKoreaStr);
     }
 
-   @Override
+    @Override
     public void gameLoseStatus(int lastCount) {
         System.out.printf("%d번의 기회를 모두 잊어 버렸습니다.\n", lastCount);
         System.out.printf("%s 하였 습니다.\n", LOSE.getResult());

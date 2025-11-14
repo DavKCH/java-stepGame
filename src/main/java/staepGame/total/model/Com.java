@@ -4,7 +4,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 public class Com {
 
-    private int twoGameResult;
+    private final int twoGameResult;
 
     private int threeGameResult;
 

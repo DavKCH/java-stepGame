@@ -1,7 +1,6 @@
 package staepGame.level2.controller;
 
 
-import camp.nextstep.edu.missionutils.Randoms;
 import staepGame.level2.model.TwoGameAction;
 import staepGame.level2.view.TwoGameInputView;
 import staepGame.level2.view.TwoGameOutputView;
@@ -9,13 +8,16 @@ import staepGame.level2.view.TwoGameOutputView;
 import staepGame.total.model.Com;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
+
 import staepGame.total.repository.UserRepository;
+
 import staepGame.total.validate.UserNumValidate;
-import staepGame.total.validate.UserScissorsFromPaperInputValidate;
 import staepGame.total.validate.YesNoInputValidate;
 
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
+
+import static staepGame.total.model.GameCompete.WIN;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,9 +78,20 @@ public class TwoGameController {
             int comInput = com.getTwoGameResult();
 
             String gameResult = TwoGameAction.gameResult(userInput, comInput);
+
             twoGameOutputView.gameResult(gameResult);
 
+            if (WIN.getResult().equals(gameResult)) {
+                defaultUser.setStepRank(StepRank.SILVER);
+
+                return;
+            }
             twoGameCount++;
+
+            if (twoGameCount == TWO_GAME_LAST) {
+                twoGameOutputView.gameLoseStatus(TWO_GAME_LAST);
+                reStartAction(defaultUser);
+            }
         }
 
     }
@@ -134,6 +147,25 @@ public class TwoGameController {
             }
         }
 
+    }
+
+    private void reStartAction(User user) {
+
+        while (true) {
+            try {
+                String reStartGameInput = totalGameInputView.inputReStartGame(user);
+                String reStratGameResult = YesNoInputValidate.start(reStartGameInput);
+
+                boolean hasReStartGame = reStratGameResult.equalsIgnoreCase("y");
+                if (hasReStartGame) {
+                    twoGameCount = 0;
+                }
+
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }
