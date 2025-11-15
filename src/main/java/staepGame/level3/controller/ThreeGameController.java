@@ -3,7 +3,6 @@ package staepGame.level3.controller;
 
 
 import camp.nextstep.edu.missionutils.Randoms;
-import staepGame.level1.model.OneGameAction;
 import staepGame.level3.model.ThreeGameAction;
 import staepGame.level3.view.ThreeGameInputView;
 import staepGame.level3.view.ThreeGameOutputView;
@@ -36,6 +35,10 @@ public class ThreeGameController {
 
     private static final int THREE_GAME_LAST = 20;
     private boolean gameBeforeCheck = true;
+
+    private final int MOVE_FORWARD = 3;
+    private final int MOVE_BACK = -1;
+    private final int MOVE_INIT = 0;
 
     public ThreeGameController(UserRepository userRepository) {
 
@@ -81,28 +84,28 @@ public class ThreeGameController {
 
             //이겼을시 3칸 전진
             if (WIN.getResult().equals(gameResult)) {
-                defaultUser.setThreeGameResult(3);
-                com.setThreeGameResult(-1);
+                defaultUser.setThreeGameResult(MOVE_FORWARD);
+                com.setThreeGameResult(MOVE_BACK);
             }
 
             //졌을시 1칸 뒤로
             if (LOSE.getResult().equals(gameResult)) {
-                defaultUser.setThreeGameResult(-1);
-                com.setThreeGameResult(3);
+                defaultUser.setThreeGameResult(MOVE_BACK);
+                com.setThreeGameResult(MOVE_FORWARD);
             }
 
             // 사용자가 이겼을시
             if (defaultUser.getThreeGameResult() >= THREE_GAME_LAST) {
-                defaultUser.setThreeGameResult(0);
-                com.setThreeGameResult(0);
+                moveInit(defaultUser, com);
+                totalGameOutputView.gameCompleteShow(defaultUser);
 
                 return;
             }
 
             // 컴퓨터가 이겼을시
             if (com.getThreeGameResult() >= THREE_GAME_LAST) {
-                defaultUser.setThreeGameResult(0);
-                com.setThreeGameResult(0);
+                moveInit(defaultUser, com);
+                threeGameOutputView.gameLoseStatus(THREE_GAME_LAST);
 
                 return;
             }
@@ -189,6 +192,11 @@ public class ThreeGameController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void moveInit(User defaultUser, Com com) {
+        defaultUser.setThreeGameResult(MOVE_INIT);
+        com.setThreeGameResult(MOVE_INIT);
     }
 
 }
