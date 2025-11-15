@@ -49,6 +49,11 @@ public class ThreeGameController {
             return;
         }
 
+        threeGameGuide();
+        threeGameOutputView.gameStartBefore();
+
+        
+
     }
 
     private User userCheck(User defaultUser) {
@@ -79,6 +84,24 @@ public class ThreeGameController {
 
                     break;
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void threeGameGuide() {
+        while (true) {
+            try {
+                String guideInput = threeGameInputView.gameGuide();
+                String oneGamedGuide = YesNoInputValidate.start(guideInput);
+
+                boolean hasOneGameGuide = oneGamedGuide.equalsIgnoreCase("y");
+                if (hasOneGameGuide) {
+                    threeGameOutputView.gameGuide();
+                }
+
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
