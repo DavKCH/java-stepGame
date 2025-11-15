@@ -36,9 +36,9 @@ public class ThreeGameController {
     private static final int THREE_GAME_LAST = 20;
     private boolean gameBeforeCheck = true;
 
-    private final int MOVE_FORWARD = 3;
-    private final int MOVE_BACK = -1;
-    private final int MOVE_INIT = 0;
+    private static final int MOVE_FORWARD = 3;
+    private static final int MOVE_BACK = -1;
+    private static final int MOVE_INIT = 0;
 
     public ThreeGameController(UserRepository userRepository) {
 
