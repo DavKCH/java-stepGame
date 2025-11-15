@@ -29,7 +29,7 @@ public class ThreeGameOutputView implements OutputView {
 
     @Override
     public void gameLoseStatus(int lastCount) {
-        System.out.printf("%d번의 기회를 모두 잊어 버렸습니다.\n", lastCount);
+        System.out.printf("상대가 먼저 %d 계단을 도착하였습니다..\n", lastCount);
         System.out.printf("%s 하였 습니다.\n", LOSE.getResult());
     }
 
