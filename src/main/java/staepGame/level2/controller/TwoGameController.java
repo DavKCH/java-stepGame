@@ -60,7 +60,6 @@ public class TwoGameController {
         twoGameGuide();
         twoGameOutputView.gameStartBefore();
 
-        System.out.println(com.getTwoGameResult());
         while (twoGameCount != TWO_GAME_LAST) {
             int userInput = getActionInput();
             int comInput = com.getTwoGameResult();
