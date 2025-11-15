@@ -79,19 +79,23 @@ public class ThreeGameController {
 
 
             // 게임 행동의 대한 결과
-            threeGameOutputView.gameResult(gameResult);
             threeGameOutputView.threeGameUserAndComStatus(defaultUser, threeGames);
+            threeGameOutputView.gameResult(gameResult);
 
             //이겼을시 3칸 전진
             if (WIN.getResult().equals(gameResult)) {
                 defaultUser.setThreeGameResult(MOVE_FORWARD);
                 com.setThreeGameResult(MOVE_BACK);
+
+                threeGameOutputView.gameUserWinResult(defaultUser, MOVE_FORWARD, MOVE_BACK);
             }
 
             //졌을시 1칸 뒤로
             if (LOSE.getResult().equals(gameResult)) {
                 defaultUser.setThreeGameResult(MOVE_BACK);
                 com.setThreeGameResult(MOVE_FORWARD);
+
+                threeGameOutputView.gameUserLoseResult(defaultUser, MOVE_FORWARD, MOVE_BACK);
             }
 
             // 사용자가 이겼을시

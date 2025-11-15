@@ -33,6 +33,16 @@ public class ThreeGameOutputView implements OutputView {
         System.out.printf("%s 하였 습니다.\n", LOSE.getResult());
     }
 
+    public void gameUserWinResult(User user, int winMove, int loseMove) {
+        int absLoseMove = Math.abs(loseMove);
+        System.out.printf("%s님 앞으로 %d칸 이동, 컴퓨터 뒤로 %d칸 이동\n", user.getName(), winMove, absLoseMove);
+    }
+
+    public void gameUserLoseResult(User user, int winMove, int loseMove) {
+        int absLoseMove = Math.abs(loseMove);
+        System.out.printf("컴퓨터 앞으로 %d칸 이동, %s님  뒤로 %d칸 이동\n", winMove, user.getName(), absLoseMove);
+    }
+
     public void threeGameUserAndComStatus(User user, ThreeGameAction[] threeGames) {
         String userKoreaStr = threeGames[0].getKoreaStr();
         String comKoreaStr = threeGames[1].getKoreaStr();
