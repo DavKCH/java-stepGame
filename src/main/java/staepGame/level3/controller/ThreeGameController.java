@@ -20,8 +20,7 @@ import staepGame.total.view.TotalGameOutputView;
 
 import java.util.Optional;
 
-import static staepGame.total.model.GameCompete.LOSE;
-import static staepGame.total.model.GameCompete.WIN;
+import static staepGame.total.model.GameCompete.*;
 
 public class ThreeGameController {
 
@@ -38,7 +37,6 @@ public class ThreeGameController {
 
     private static final int MOVE_FORWARD = 3;
     private static final int MOVE_BACK = -1;
-    private static final int MOVE_INIT = 0;
 
     public ThreeGameController(UserRepository userRepository) {
 
@@ -88,6 +86,7 @@ public class ThreeGameController {
                 com.setThreeGameResult(MOVE_BACK);
 
                 threeGameOutputView.gameUserWinResult(defaultUser, MOVE_FORWARD, MOVE_BACK);
+                threeGameOutputView.gameResultAfterAction(defaultUser, com);
             }
 
             //졌을시 1칸 뒤로
@@ -96,6 +95,12 @@ public class ThreeGameController {
                 com.setThreeGameResult(MOVE_FORWARD);
 
                 threeGameOutputView.gameUserLoseResult(defaultUser, MOVE_FORWARD, MOVE_BACK);
+                threeGameOutputView.gameResultAfterAction(defaultUser, com);
+            }
+
+            // 무승부
+            if (DRAW.getResult().equals(gameResult)) {
+                threeGameOutputView.gameResultAfterAction(defaultUser, com);
             }
 
             // 사용자가 이겼을시
@@ -199,8 +204,8 @@ public class ThreeGameController {
     }
 
     private void moveInit(User defaultUser, Com com) {
-        defaultUser.setThreeGameResult(MOVE_INIT);
-        com.setThreeGameResult(MOVE_INIT);
+        defaultUser.initGameResult();
+        com.initGameResult();
     }
 
 }

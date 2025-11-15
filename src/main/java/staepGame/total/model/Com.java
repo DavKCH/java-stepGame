@@ -22,7 +22,11 @@ public class Com {
             return;
         }
 
-        this.threeGameResult = inputGameResult;
+        this.threeGameResult += inputGameResult;
+    }
+
+    public void initGameResult() {
+        this.threeGameResult = 0;
     }
 
     public int getThreeGameResult() {
