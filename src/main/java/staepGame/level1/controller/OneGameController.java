@@ -17,6 +17,8 @@ import staepGame.total.view.TotalGameOutputView;
 import staepGame.total.repository.UserRepository;
 import staepGame.total.validate.*;
 
+import java.util.Optional;
+
 
 public class OneGameController {
 
@@ -45,9 +47,11 @@ public class OneGameController {
     public void run() {
 
         totalGameOutputView.gameStartShow();
-
         String userName = getUserName();
+        checkDuplicateUser(userName);
+
         User user = new User(userName);
+
         oneGameGuide();
         oneGameOutputView.gameStartBefore();
 
@@ -94,11 +98,24 @@ public class OneGameController {
             try {
                 String strNameInput = totalGameInputView.inputGameStart();
                 String userName = UserNameValidate.start(strNameInput);
+                checkDuplicateUser(userName);
 
                 return userName;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void checkDuplicateUser(String userName) {
+        Optional<User> checkUser = userRepository.findAll()
+                .stream()
+                .filter(checkUSer -> checkUSer.getName().equals(userName))
+                .findFirst();
+
+        User user = checkUser.orElse(null);
+        if (user != null) {
+            throw new IllegalArgumentException();
         }
     }
 
