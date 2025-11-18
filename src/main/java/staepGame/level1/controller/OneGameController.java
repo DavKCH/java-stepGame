@@ -11,6 +11,8 @@ import staepGame.level1.model.OneGameAction;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
 import static staepGame.total.model.GameCompete.WIN;
+
+import staepGame.total.repository.GameRepository;
 import staepGame.total.view.TotalGameInputView;
 import staepGame.total.view.TotalGameOutputView;
 
@@ -29,11 +31,12 @@ public class OneGameController {
     private final TotalGameOutputView totalGameOutputView;
 
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
 
     private static final int ONE_GAME_LAST = 3;
     private int oneGameCount = 0;
 
-    public OneGameController(UserRepository userRepository) {
+    public OneGameController(UserRepository userRepository, GameRepository gameRepository) {
 
         this.totalGameInputView = new TotalGameInputView();
         this.totalGameOutputView = new TotalGameOutputView();
@@ -42,6 +45,7 @@ public class OneGameController {
         this.oneGameOutputView = new OneGameOutputView();
 
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     public void run() {
@@ -75,6 +79,7 @@ public class OneGameController {
             if (WIN.getResult().equals(gameResult)) {
                 user.setStepRank(StepRank.BRONZE);
                 userRepository.add(user);
+                gameRepository.setHasGameTwo(true);
 
                 return;
             }

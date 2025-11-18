@@ -9,6 +9,7 @@ import staepGame.total.model.Com;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
 
+import staepGame.total.repository.GameRepository;
 import staepGame.total.repository.UserRepository;
 
 import staepGame.total.validate.UserNumValidate;
@@ -30,13 +31,14 @@ public class TwoGameController {
     private final TotalGameOutputView totalGameOutputView;
 
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
 
     private static final int TWO_GAME_LAST = 8;
     private int twoGameCount = 0;
     private boolean gameBeforeCheck = true;
 
 
-    public TwoGameController(UserRepository userRepository) {
+    public TwoGameController(UserRepository userRepository, GameRepository gameRepository) {
 
         this.totalGameInputView = new TotalGameInputView();
         this.totalGameOutputView = new TotalGameOutputView();
@@ -45,9 +47,14 @@ public class TwoGameController {
         this.twoGameOutputView = new TwoGameOutputView();
 
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     public void run() {
+
+        if (!gameRepository.isHasGameTwo()) {
+            return;
+        }
 
         User defaultUser = null;
         Com com = new Com();
@@ -70,7 +77,7 @@ public class TwoGameController {
 
             if (WIN.getResult().equals(gameResult)) {
                 defaultUser.setStepRank(StepRank.SILVER);
-
+                gameRepository.setHasGameThree(true);
                 return;
             }
             twoGameCount++;

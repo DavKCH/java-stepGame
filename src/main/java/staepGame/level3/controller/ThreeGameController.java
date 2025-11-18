@@ -10,6 +10,7 @@ import staepGame.level3.view.ThreeGameOutputView;
 import staepGame.total.model.Com;
 import staepGame.total.model.StepRank;
 import staepGame.total.model.User;
+import staepGame.total.repository.GameRepository;
 import staepGame.total.repository.UserRepository;
 
 import staepGame.total.validate.UserRcpActionValidate;
@@ -31,6 +32,7 @@ public class ThreeGameController {
     private final ThreeGameOutputView threeGameOutputView;
 
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
 
     private static final int THREE_GAME_LAST = 20;
     private boolean gameBeforeCheck = true;
@@ -38,7 +40,7 @@ public class ThreeGameController {
     private static final int MOVE_FORWARD = 3;
     private static final int MOVE_BACK = -1;
 
-    public ThreeGameController(UserRepository userRepository) {
+    public ThreeGameController(UserRepository userRepository, GameRepository gameRepository) {
 
         this.totalGameInputView = new TotalGameInputView();
         this.totalGameOutputView = new TotalGameOutputView();
@@ -47,9 +49,15 @@ public class ThreeGameController {
         this.threeGameOutputView = new ThreeGameOutputView();
 
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     public void run() {
+
+        if (!gameRepository.isHasGameThree()) {
+            return;
+        }
+
         User defaultUser = null;
         Com com = new Com();
 
