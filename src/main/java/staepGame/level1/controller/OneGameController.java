@@ -48,8 +48,6 @@ public class OneGameController {
 
         totalGameOutputView.gameStartShow();
         String userName = getUserName();
-        checkDuplicateUser(userName);
-
         User user = new User(userName);
 
         oneGameGuide();

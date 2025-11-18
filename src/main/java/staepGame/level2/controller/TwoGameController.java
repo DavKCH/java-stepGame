@@ -107,9 +107,8 @@ public class TwoGameController {
                     if (!hasReNameInput) {
                         gameBeforeCheck = false;
                     }
-
-                    break;
                 }
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

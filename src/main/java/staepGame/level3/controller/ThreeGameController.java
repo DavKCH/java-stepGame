@@ -132,6 +132,7 @@ public class ThreeGameController {
 
             defaultUser = findUser.orElse(null);
             reNameInputAction(defaultUser);
+
         }
         return defaultUser;
     }
@@ -148,9 +149,8 @@ public class ThreeGameController {
                     if (!hasReNameInput) {
                         gameBeforeCheck = false;
                     }
-
-                    break;
                 }
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
