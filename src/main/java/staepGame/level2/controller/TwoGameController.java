@@ -98,6 +98,11 @@ public class TwoGameController {
 
             defaultUser = findUser.orElse(null);
             reNameInputAction(defaultUser);
+
+            if (defaultUser != null) {
+                gameBeforeCheck = false;
+            }
+
         }
         return defaultUser;
     }
