@@ -58,6 +58,7 @@ public class ThreeGameController {
             return;
         }
 
+        // 사용자 체크
         User defaultUser = null;
         Com com = new Com();
 
@@ -69,8 +70,8 @@ public class ThreeGameController {
         threeGameGuide();
         threeGameOutputView.gameStartBefore();
 
+        // 게임 시작
         while(true) {
-
             // 가위 바위 보 행동
             String[] actionResult = getActionInput();
             String userActionInput = actionResult[0];
@@ -87,6 +88,10 @@ public class ThreeGameController {
             // 게임 행동의 대한 결과
             threeGameOutputView.threeGameUserAndComStatus(defaultUser, threeGames);
             threeGameOutputView.gameResult(gameResult);
+
+            // ====================================================
+            // =========== 행동에 대한 결과로 실행 되는 로직 ===========
+            // ====================================================
 
             //이겼을시 3칸 전진
             if (WIN.getResult().equals(gameResult)) {
@@ -111,6 +116,10 @@ public class ThreeGameController {
                 threeGameOutputView.gameResultAfterAction(defaultUser, com);
             }
 
+            // ===============================================
+            // ===========  게임 종료시 실행 되는 로직 ===========
+            // ===============================================
+
             // 사용자가 이겼을시
             if (defaultUser.getThreeGameResult() >= THREE_GAME_LAST) {
                 moveInit(defaultUser, com);
@@ -134,6 +143,7 @@ public class ThreeGameController {
 
     }
 
+    // =========== userCheck start ===========
     private User userCheck(User defaultUser) {
         while (gameBeforeCheck) {
             String nameCheckInput = totalGameInputView.nameCheck();
@@ -171,6 +181,7 @@ public class ThreeGameController {
             }
         }
     }
+    // =========== userCheck end ===========
 
     private void threeGameGuide() {
         while (true) {

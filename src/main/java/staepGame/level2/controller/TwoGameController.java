@@ -56,6 +56,7 @@ public class TwoGameController {
             return;
         }
 
+        // 사용자 체크
         User defaultUser = null;
         Com com = new Com();
 
@@ -67,14 +68,18 @@ public class TwoGameController {
         twoGameGuide();
         twoGameOutputView.gameStartBefore();
 
+        // 게임 시작
         while (twoGameCount != TWO_GAME_LAST) {
+            // 게임 행동
             int userInput = getActionInput();
             int comInput = com.getTwoGameResult();
 
             String gameResult = TwoGameAction.gameResult(userInput, comInput);
 
+            // 게임 행동의 결과.
             twoGameOutputView.gameResult(gameResult);
 
+            // 게임 승리시
             if (WIN.getResult().equals(gameResult)) {
                 defaultUser.setStepRank(StepRank.SILVER);
                 gameRepository.setHasGameThree(true);
@@ -85,6 +90,7 @@ public class TwoGameController {
             }
             twoGameCount++;
 
+            // 게임에 졌을시
             if (twoGameCount == TWO_GAME_LAST) {
                 twoGameOutputView.gameLoseStatus(TWO_GAME_LAST);
                 reStartAction(defaultUser);
@@ -94,6 +100,7 @@ public class TwoGameController {
         totalGameOutputView.gameEndShow(defaultUser);
     }
 
+    // =========== userCheck start ===========
     private User userCheck(User defaultUser) {
         while (gameBeforeCheck) {
             String nameCheckInput = totalGameInputView.nameCheck();
@@ -130,6 +137,7 @@ public class TwoGameController {
             }
         }
     }
+    // =========== userCheck end ===========
 
     private void twoGameGuide() {
         while (true) {
