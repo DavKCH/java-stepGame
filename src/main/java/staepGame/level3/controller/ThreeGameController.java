@@ -124,7 +124,10 @@ public class ThreeGameController {
                 moveInit(defaultUser, com);
                 threeGameOutputView.gameLoseStatus(THREE_GAME_LAST);
 
+                totalGameOutputView.gameEndShow(defaultUser);
+
                 return;
+                
             }
 
         }

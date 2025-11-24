@@ -81,6 +81,8 @@ public class OneGameController {
                 userRepository.add(user);
                 gameRepository.setHasGameTwo(true);
 
+                totalGameOutputView.userStatus(user);
+
                 return;
             }
             oneGameCount++;

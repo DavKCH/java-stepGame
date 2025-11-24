@@ -78,6 +78,9 @@ public class TwoGameController {
             if (WIN.getResult().equals(gameResult)) {
                 defaultUser.setStepRank(StepRank.SILVER);
                 gameRepository.setHasGameThree(true);
+
+                totalGameOutputView.userStatus(defaultUser);
+
                 return;
             }
             twoGameCount++;
@@ -88,6 +91,7 @@ public class TwoGameController {
             }
         }
 
+        totalGameOutputView.gameEndShow(defaultUser);
     }
 
     private User userCheck(User defaultUser) {
